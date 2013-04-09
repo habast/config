@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 /**
  * Thrown to indicate that a contract assertion check has been failed.
  *
- * @author Ulli Hafner
+ * @author Ulli Hafner TEST
  */
 public final class AssertionFailedException extends RuntimeException {
     private static final long serialVersionUID = -7033759120346380864L;
@@ -18,9 +18,10 @@ public final class AssertionFailedException extends RuntimeException {
      * @param message
      *            the detail error message.
      */
+    //Test Comment
     AssertionFailedException(final String message) {
         super(message);
-
+        System.out.println("Test");
         log(this);
     }
 
