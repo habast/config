@@ -1,9 +1,12 @@
+
+
 package edu.hm.hafner.util;
 
 /**
  * Several useful utility methods that work on {@link String} instances.
  *
  * @author Ulli Hafner
+ * @author Marvin Schütz
  */
 public final class StringUtils {
     /**
