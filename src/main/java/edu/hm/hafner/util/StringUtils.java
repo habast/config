@@ -7,6 +7,7 @@ package edu.hm.hafner.util;
  *
  * @author Ulli Hafner
  * @author Marvin Schütz
+ * @author habast
  */
 public final class StringUtils {
     /**
