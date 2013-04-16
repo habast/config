@@ -145,7 +145,7 @@ public final class StringUtils {
         if (passwordEingabe.length() < 20) {
             return false;
         }
-        boolean small = false, big = false, number = false, diff = false, special = false;
+
         StringBuilder diffChars = new StringBuilder();
         for (int i = 0; i < passwordEingabe.length(); i++) {
             String si = passwordEingabe.substring(i, i + 1);
@@ -153,9 +153,15 @@ public final class StringUtils {
                 diffChars.append(si);
             }
         }
-        if (diffChars.length() > 10) {
-            diff = true;
+        if (diffChars.length() < 10) {
+            return false;
         }
+
+        boolean small = false;
+        boolean big = false;
+        boolean number = false;
+        boolean special = false;
+
         for (int i = 0; i < passwordEingabe.length(); i++) {
             if (47 < passwordEingabe.charAt(i) && passwordEingabe.charAt(i) < 58) {
                 number = true;
@@ -171,7 +177,8 @@ public final class StringUtils {
             }
             special = true;
         }
-        return small && big && number && diff && special;
+        //Hier keine volle Couverage da der Fall: 4xfalse ausgeschlossen ist
+        return small && big && number && special;
     }
 
     /**
@@ -188,18 +195,17 @@ public final class StringUtils {
         }
         // Rausfiltern von '-' und ' '
         String toCheck = isbnEingabe.replace("-", "").replace(" ", "");
-        // System.out.println(toCheck);
         if (toCheck.length() == 13) {
             int checksum = 0;
             for (int i = 0; i < toCheck.length() - 1; i++) {
                 checksum = checksum + (toCheck.charAt(i) - 48) * ((i % 2 * 2) + 1);
-                // System.out.println((toCheck.charAt(i)-48) * ((i%2 * 2) +1));
             }
-            // System.out.println(((checksum + (toCheck.charAt(12)-48))%10));
+            //Überprüfen
             if (((checksum + (toCheck.charAt(12) - 48)) % 10) == 0) {
                 return true;
             }
         }
+        //Hier fliegen alle ungültigen raus.
         return false;
     }
 }

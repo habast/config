@@ -174,6 +174,26 @@ public class StringUtilsTest {
     }
 
     /**
+     * Prüft die Methode strip() ob die Methode mit Duplikaten im 1.Parameter zurechtkommt.
+     *
+     * @author Sebastian Hansbauer
+     */
+    @Test
+    public void testeStripDuplicateFirst() {
+        assertEquals("Dieser String sollte leer sein.", StringUtils.strip("1223aabbccc /1", " c/ba123"), "");
+    }
+
+    /**
+     * Prüft die Methode strip() ob die Methode mit Duplikaten im 2.Parameter zurechtkommt.
+     *
+     * @author Sebastian Hansbauer
+     */
+    @Test
+    public void testeStripDuplicateSecond() {
+        assertEquals("Dieser String sollte leer sein.", StringUtils.strip("123abc /", " cc/baa1233"), "");
+    }
+
+    /**
      * Prüft die Methode strip() ob die Methode mit Zeichen zurecht kommt welche im String nicht vorkommen.
      *
      * @author Sebastian Hansbauer
@@ -215,6 +235,17 @@ public class StringUtilsTest {
     }
 
     /**
+     * Prüft die Methode isSecure() auf "" als Übergabeparameter.
+     *
+     * @author Sebastian Hansbauer
+     */
+    @Test
+    public void testeIsSecureEmpty() {
+        assertFalse(" Leerer String sollte false sein.", StringUtils.isSecure(""));
+    }
+
+
+    /**
      * Prüft die Methode isSecure() auf zu kurzes sonst gültiges Passwort.
      *
      * @author Sebastian Hansbauer
@@ -253,6 +284,27 @@ public class StringUtilsTest {
     public void testeIsSecureNoSpecial() {
         assertFalse("PW ohne Sonderzeichen sollte false sein.", StringUtils.isSecure("1aabcdefghijklmnopqrstuvwxyz"));
     }
+
+    /**
+     * Prüft die Methode isSecure() ob ein bestimmeter Branch durch das Sonderzeichen "|" durchlaufen wird.
+     *
+     * @author Sebastian Hansbauer
+     */
+    @Test
+    public void testeIsSecureSpecialOtherBranch() {
+        assertFalse("PW ohne Sonderzeichen sollte false sein.", StringUtils.isSecure("1|abcdefghijklmnopqrstuvwxyz"));
+    }
+
+    /**
+     * Prüft die Methode isSecure() ob ein bestimmeter Branch durch das Sonderzeichen "|" durchlaufen wird.
+     *
+     * @author Sebastian Hansbauer
+     */
+    @Test
+    public void testeIsSecureBranchTest() {
+        assertFalse("PW ohne Sonderzeichen sollte false sein.", StringUtils.isSecure("                                    "));
+    }
+
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne Zahl als false erkannt wird.
@@ -323,7 +375,7 @@ public class StringUtilsTest {
      */
     @Test
     public void testeIsValdiIsbn13ValidChars() {
-        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn13("$§()∆ƒ‚∂∑⁄123"));
+        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn13("$§()∆ƒ‚∂∑⁄1234567890"));
     }
 
     /**

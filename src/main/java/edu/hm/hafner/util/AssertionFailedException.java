@@ -21,7 +21,7 @@ public final class AssertionFailedException extends RuntimeException {
     //Test Comment
     AssertionFailedException(final String message) {
         super(message);
-        System.out.println("Test");
+        System.out.println("Test"); // Test Ausgabe
         log(this);
     }
 
