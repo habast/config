@@ -223,6 +223,18 @@ public class StringUtilsTest {
         assertEquals("Dieser String sollte gleich sein", StringUtils.strip("abc", ""), "abc");
     }
 
+    /**
+     * Prüft die Methode strip() ob der String korrekt getrimmt wird.
+     *
+     * @author Sebastian Hansbauer
+     */
+    @Test
+    public void testeStripCorrect() {
+        assertEquals("Dieser String sollte richtig getrimmt sein.", StringUtils.strip("Ga123abc$ /", "a2b c3G /"), "1$");
+        assertEquals("Dieser String sollte richtig getrimmt sein.", StringUtils.strip("OhneAenhO", "A"), "OhneenhO");
+        assertEquals("Dieser String sollte richtig getrimmt sein.", StringUtils.strip(" A1,.", ", A1 "), ".");
+    }
+
     // isSecure() Test
     /**
      * Prüft die Methode isSecure() auf null als Übergabeparameter.
@@ -334,7 +346,9 @@ public class StringUtilsTest {
      */
     @Test
     public void testeIsSecureCorrect() {
-        assertTrue("PW sollte gültig sein.", StringUtils.isSecure("1%Aabcdefghijklmnopqrstuvwxyz"));
+        assertTrue("PW sollte gültig sein.", StringUtils.isSecure("1%Aabcdefghijklmnopq"));
+        assertTrue("PW sollte gültig sein.", StringUtils.isSecure("ichTesteinGANZtollesPW mit Zahlen 1234&"));
+        assertTrue("PW sollte gültig sein.", StringUtils.isSecure("BlaaahhB∂ƒª∑⁄€ƒº234234%ETWER"));
     }
 
     // isValidIsbn13() Test
@@ -375,7 +389,9 @@ public class StringUtilsTest {
      */
     @Test
     public void testeIsValdiIsbn13ValidChars() {
-        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn13("$§()∆ƒ‚∂∑⁄1234567890"));
+        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn13("97©381184086 5"));
+        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn13("973811210865 &"));
+        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn13("/97338133886 5"));
     }
 
     /**
@@ -386,6 +402,8 @@ public class StringUtilsTest {
     @Test
     public void testeIsValdiIsbn13Uncorrect() {
         assertFalse("Ungültige ISBN sollte false liefern.", StringUtils.isValidIsbn13("978-3-7657-2781-0"));
+        assertFalse("Ungültige ISBN sollte false liefern.", StringUtils.isValidIsbn13("978-3-442-26628-1"));
+        assertFalse("Ungültige ISBN sollte false liefern.", StringUtils.isValidIsbn13("978-3-7657-2781-6"));
     }
 
     /**
@@ -396,5 +414,7 @@ public class StringUtilsTest {
     @Test
     public void testeIsValdiIsbn13Correct() {
         assertTrue("Korrekte ISBN sollte true liefern.", StringUtils.isValidIsbn13(" 978381582086 5"));
+        assertTrue("Korrekte ISBN sollte true liefern.", StringUtils.isValidIsbn13(" 978-3-442-26628-9 "));
+        assertTrue("Korrekte ISBN sollte true liefern.", StringUtils.isValidIsbn13(" 978-3-7657-2781-8"));
     }
 }
