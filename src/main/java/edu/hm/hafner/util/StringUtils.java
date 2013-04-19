@@ -113,7 +113,11 @@ public final class StringUtils {
         }
         }
         sum =sum %11;
-        //prüf ziffer wird getestet
+        if(isbn.charAt(9) == 'x'||isbn.charAt(9) == 'X') {
+            if(sum == 10) {
+                return true;
+            }
+        }
         if(sum != Character.getNumericValue(isbn.charAt(9))) {
             return false;
         }

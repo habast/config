@@ -89,6 +89,8 @@ public class StringUtilsTest {
     @Test
     public void testeIsValidIsbnTrue(){
         assertTrue("Die ISBN ist gültig",StringUtils.isValidIsbn10("3-89721-453-9"));
+        assertTrue("Die ISBN ist gültig",StringUtils.isValidIsbn10("386 883 091 x"));
+        assertTrue("Die ISBN ist gültig",StringUtils.isValidIsbn10("386 883 091 X"));
     }
 }
 
