@@ -3,7 +3,8 @@ package edu.hm.hafner.util;
 /**
  * Several useful utility methods that work on {@link String} instances.
  *
- * @author Sebastian Hansbauer P1
+ * @author Sebastian Hansbauer
+ * @author Marvin Schütz
  */
 public final class StringUtils {
     /**
@@ -28,95 +29,102 @@ public final class StringUtils {
     }
 
     /**
-     * Prüft ob der übergebene String nur Leerzeichen enthält.
-     *
-     * @author Sebastian Hansbauer
-     * @param input
-     *            Zu prüfender String
-     * @return True wenn nur Leerzeichen, false wenn nicht.
+     * Testet ob ein String nur aus Blanks besteht
+     * @author Marvin Schütz
+     * @param toTest
+     * @return true falls der String nur aus Blanks besteht sonst false
      */
-    public static boolean isBlank(final String input) {
-        if (input == null) {
-            return false;
+    public static boolean isBlank(final String toTest) {
+        if(toTest == null) {
+            return true;
         }
-        for (int i = 0; i < input.length(); i++) {
-            if (input.charAt(i) != ' ') {
-                return false;
+        else {
+            for(int i=0;i<toTest.length();i++){
+                if(toTest.charAt(i) != ' ') {
+                    return false;
+                }
             }
         }
         return true;
     }
 
     /**
-     * Konkateniert die übergebenen Strings.
-     *
-     * @author Sebastian Hansbauer
-     * @param elements
-     *            Übergebene Strings
-     * @return Konkatenierter String
+     *Verbindet Strings zu einem neuen.
+     *@author Marvin Schütz
+     *@param elements
+     *@return result neuer string
      */
     public static String join(final String... elements) {
-        if (elements != null) {
-            String toAdd;
-            String konkateniert = "";
-            for (int i = 0; i < elements.length; i++) {
-                // null Elemente erkennen
-                if (elements[i] == null) {
-                    toAdd = "null";
+        String result ="";
+        if(elements.length==0) {
+            throw new IllegalArgumentException();
+        }
+        else{
+            for(int i = 0; i<elements.length; i++){
+                if(elements[i]!=null) {
+                    result+=elements[i];
                 }
                 else {
-                    toAdd = elements[i];
+                    result+="(null)";
                 }
-                konkateniert = konkateniert + toAdd;
-                if (i < elements.length - 1) {
-                    konkateniert = konkateniert + ',';
+                if(i<elements.length-1){
+                    result+=",";
                 }
             }
-            // System.out.println(konkateniert);
-            return konkateniert;
         }
-        else {
-            throw new IllegalArgumentException("Es muss mindestens 1 Element übergeben werden.");
-        }
+        return result;
     }
 
     /**
-     * Prüft die Gültigkeit der übergebenen ISBN Nummer.
-     *
-     * @author Sebastian Hansbauer
+     * Prüft eine 10 stellige ISBN auf Gültigkeit.
+     * @author Marvin Schütz
      * @param isbnEingabe
-     *            Übergebene ISBN Nummer.
-     * @return True wenn gültig, false wenn ungültig.
+     * @return false falls die Eingabe ungültig ist ansonsten true
      */
-    public static boolean isValidIsbn10(final String isbnEingabe) {
-        if (isbnEingabe == null) {
+    public static boolean isValidIsbn10(final String isbnEingabe){
+        int sum = 0;
+
+        //abfrage ob null und ob die länge in Ordnung ist
+        if(isbnEingabe == null || isbnEingabe.length()!=13) {
             return false;
         }
-        // Rausfiltern von '-' und ' '
-        String toCheck = isbnEingabe.replace("-", "").replace(" ", "");
-        // System.out.println(toCheck);
-        if (toCheck.length() == 10) {
-            int checksum = 0;
-            for (int i = 0; i < toCheck.length() - 1; i++) {
-                checksum = checksum + (toCheck.charAt(i) - 48) * (10 - i);
-                // System.out.println((toCheck.charAt(i)-48) * (10-i));
-            }
-            // System.out.println(((checksum + (toCheck.charAt(9)-48))%11));
-            if (((checksum + (toCheck.charAt(9) - 48)) % 11) == 0) {
+        //entfärnt die Formatierungszeichen
+        String[] tmp = isbnEingabe.split("[ \\-]");
+        String isbn="";
+        for(int i=0;i<4;i++){
+            isbn+=tmp[i];
+        }
+        //nochmal testen auf die richtige länge falls zuviele fotmatierungszeichen enthalten waren
+        if(isbn.length()!=10) {
+            return false;
+        }
+        for(int i=0 ; i<=8;i++){
+           int digit = Character.getNumericValue(isbn.charAt(i));
+           //prüft ob dass zeichen eine zahl ist
+           if(!(-1<digit&&digit<10)) {
+            return false;
+           }
+        else {
+            sum+=(i+1)*digit;
+        }
+        }
+        sum =sum %11;
+        if(isbn.charAt(9) == 'x'||isbn.charAt(9) == 'X') {
+            if(sum == 10) {
                 return true;
             }
         }
-        return false;
+        if(sum != Character.getNumericValue(isbn.charAt(9))) {
+            return false;
+        }
+        return true;
     }
 
-    /**
+     /**
      * Entfernt die Zeichen von toBeRemoved aus dem String eingabe.
-     *
      * @author Sebastian Hansbauer
-     * @param eingabe
-     *            Zu bearbeitender String
-     * @param toBeRemoved
-     *            Zu entfernende Zeichen
+     * @param eingabe Zu bearbeitender String
+     * @param toBeRemoved Zu entfernende Zeichen
      * @return Bearbeiteter String.
      */
     public static String strip(final String eingabe, final String toBeRemoved) {
@@ -132,10 +140,8 @@ public final class StringUtils {
 
     /**
      * Prüft das übergebene Passwort auf ausreichende Sicherheit.
-     *
      * @author Sebastian Hansbauer
-     * @param passwordEingabe
-     *            Zu prüfende Passwort
+     * @param passwordEingabe Zu prüfende Passwort
      * @return True Passwort ist sicher, false Passwort ist unsicher.
      */
     public static boolean isSecure(final String passwordEingabe) {
@@ -183,10 +189,8 @@ public final class StringUtils {
 
     /**
      * Prüft die Gültigkeit der übergebenen ISBN Nummer.
-     *
      * @author Sebastian Hansbauer
-     * @param isbnEingabe
-     *            Übergebene ISBN Nummer.
+     * @param isbnEingabe Übergebene ISBN Nummer.
      * @return True wenn gültig, false wenn ungültig.
      */
     public static boolean isValidIsbn13(final String isbnEingabe) {

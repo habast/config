@@ -29,117 +29,84 @@ public class StringUtilsTest {
         assertFalse("Der String sollte nicht als empty erkannt werden", StringUtils.isEmpty("Hallo"));
     }
 
-    // isBlank() Tests
+    // isBlank()
     /**
-     * Prüft die Methode isBlank() auf null Übergabe.
+     * testet die methode isBlank auf true Ausgabe.
      *
-     * @author Sebastian Hansbauer
+     * @author Marvin Schütz
      */
     @Test
-    public void testeIsBlankNull() {
-        assertFalse("Null -> false", StringUtils.isBlank(null));
+    public void testeIsBlankTrue() {
+        assertTrue("Null muss als String mit Blanks anerkannt werden", StringUtils.isBlank(null));
+        assertTrue("Der String Besteht nur aus Blanks", StringUtils.isBlank(" "));
+        assertTrue("Der String Besteht nur aus Blanks", StringUtils.isBlank("          "));
     }
 
     /**
-     * Prüft die Methode isBlank() auf richtige Erkennung eines Strings mit nur blanks.
+     * tetstet die Methode auf false Ausgabe.
      *
-     * @author Sebastian Hansbauer
+     * @author Marvin Schütz
      */
     @Test
-    public void testeIsBlankCorrect() {
-        assertTrue("Blanks -> true", StringUtils.isBlank("   "));
+    public void testeIsBlankFalse() {
+        assertFalse("String enhält zeichen es sollte false zurückgegeben werden",
+                StringUtils.isBlank("hsdghdfk   sdfg"));
+        assertFalse("String enhält zeichen es sollte false zurückgegeben werden", StringUtils.isBlank("   hsdghdfkfg"));
+        assertFalse("String enhält zeichen es sollte false zurückgegeben werden", StringUtils.isBlank("&%!?"));
     }
 
+    // join()
     /**
-     * Prüft die Methode isBlank() auf Erkennung eines Strings mit teilweisen blanks.
+     * Testet die Methode join auf exception.
      *
-     * @author Sebastian Hansbauer
-     */
-    @Test
-    public void testeIsBlankUncorrect() {
-        assertFalse("Not only blanks -> false", StringUtils.isBlank(" f "));
-    }
-
-    // join() Tests
-    /**
-     * Prüft die Methode join() auf null Übergabe.
-     *
-     * @author Sebastian Hansbauer
+     * @author Marvin Schütz
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testeJoinNull() {
-        StringUtils.join(null);
+    public void testeJoinIllegalArgumentexception() {
+        StringUtils.join();
     }
 
     /**
-     * Prüft die Methode join() auf richtige Konkatenation, Kommasetzung, null Erkennung und Reihenfolge.
+     * Teste die Methode join auf richtige Ausgabe.
      *
-     * @author Sebastian Hansbauer
+     * @author Marvin Schütz
      */
     @Test
-    public void testeJoinKonka() {
-        assertEquals("Konkatenation nicht korrekt", StringUtils.join("1", "bla", null, " "), "1,bla,null, ");
+    public void testeJoinAusgabe() {
+        assertEquals("falscher String", "hallo", StringUtils.join("hallo"));
+        assertEquals("falscher String", "hallo,du", StringUtils.join("hallo", "du"));
+        assertEquals("falscher String", "hallo,(null)", StringUtils.join("hallo", null));
+        assertEquals("falscher String", "hallo,(null),du", StringUtils.join("hallo", null, "du"));
     }
 
-    // isValidIsbn10() Test
+    // isValidIsbn10()
     /**
-     * Prüft die Method isValidIsbn10() auf null Übergabe.
+     * Testet die Methode isValidIsbn auf false Rückgabe.
      *
-     * @author Sebastian Hansbauer
+     * @author Marvin Schütz
      */
     @Test
-    public void testeIsValdiIsbn10Null() {
-        assertFalse("Null Übergabe sollte false sein", StringUtils.isValidIsbn10(null));
-    }
-
-    /**
-     * Prüft die Method isValidIsbn10() auf zu kurze Übergabe.
-     *
-     * @author Sebastian Hansbauer
-     */
-    @Test
-    public void testeIsValdiIsbn10Short() {
-        assertFalse("Zu kurze Übergabe sollte false sein.", StringUtils.isValidIsbn10("123456789"));
-    }
-
-    /**
-     * Prüft die Method isValidIsbn10() auf zu lange Übergabe.
-     *
-     * @author Sebastian Hansbauer
-     */
-    @Test
-    public void testeIsValdiIsbn10Long() {
-        assertFalse("Zu lange Übergabe sollte false sein.", StringUtils.isValidIsbn10("12345678910"));
+    public void testeIsValidIsbnFalse() {
+        assertFalse("EIngabe null muss false ergeben", StringUtils.isValidIsbn10(null));
+        assertFalse("leerer string muss false ergeben", StringUtils.isValidIsbn10(""));
+        assertFalse("zu langer string muss false ergeben", StringUtils.isValidIsbn10("1235468476465489456134823"));
+        assertFalse("zu viele formatierungszeichen muss false ergeben", StringUtils.isValidIsbn10("3--1258--9825"));
+        assertFalse("zu viele formatierungszeichen muss false ergeben", StringUtils.isValidIsbn10("3  1258  9825"));
+        assertFalse("Buchstaben sind nicht erlaubt", StringUtils.isValidIsbn10("3-8fg21-453-9"));
+        assertFalse("Ungültige Prüfziffer", StringUtils.isValidIsbn10("3-89721-453-5"));
+        assertFalse("Sonderzeichen sind nicht erlaubt", StringUtils.isValidIsbn10("3-8!?21-453-9"));
     }
 
     /**
-     * Prüft die Method isValidIsbn10() auf gültige Zeichen.
+     * Testet die Methode isValidIsbn auf true Rückgabe-
      *
-     * @author Sebastian Hansbauer
+     * @author Marvin Schütz
      */
     @Test
-    public void testeIsValdiIsbn10ValidChars() {
-        assertFalse("Ungültige Zeichen sollten false ergeben.", StringUtils.isValidIsbn10("$§()∆ƒ‚∂∑⁄"));
-    }
-
-    /**
-     * Prüft die Method isValidIsbn10() auf korrekte Erkennung einer falschen ISBN.
-     *
-     * @author Sebastian Hansbauer
-     */
-    @Test
-    public void testeIsValdiIsbn10Uncorrect() {
-        assertFalse("Ungültige ISBN sollte false liefern.", StringUtils.isValidIsbn10("3-86680-192-7"));
-    }
-
-    /**
-     * Prüft die Method isValidIsbn10() auf korrekte Erkennung einer gültigen ISBN.
-     *
-     * @author Sebastian Hansbauer
-     */
-    @Test
-    public void testeIsValdiIsbn10Correct() {
-        assertTrue("Korrekte ISBN sollte true liefern.", StringUtils.isValidIsbn10("87 - 11 - 07559 - 7"));
+    public void testeIsValidIsbnTrue() {
+        assertTrue("Die ISBN ist gültig", StringUtils.isValidIsbn10("3-89721-453-9"));
+        assertTrue("Die ISBN ist gültig", StringUtils.isValidIsbn10("386 883 091 x"));
+        assertTrue("Die ISBN ist gültig", StringUtils.isValidIsbn10("386 883 091 X"));
     }
 
     // strip() Test
@@ -256,7 +223,6 @@ public class StringUtilsTest {
         assertFalse(" Leerer String sollte false sein.", StringUtils.isSecure(""));
     }
 
-
     /**
      * Prüft die Methode isSecure() auf zu kurzes sonst gültiges Passwort.
      *
@@ -314,9 +280,9 @@ public class StringUtilsTest {
      */
     @Test
     public void testeIsSecureBranchTest() {
-        assertFalse("PW ohne Sonderzeichen sollte false sein.", StringUtils.isSecure("                                    "));
+        assertFalse("PW ohne Sonderzeichen sollte false sein.",
+                StringUtils.isSecure("                                    "));
     }
-
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne Zahl als false erkannt wird.
