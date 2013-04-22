@@ -6,7 +6,6 @@ import org.junit.Test;
 
 /**
  * Testet die Klasse {@link StringUtils}.
- *
  * @author Sebastian Hansbauer P1
  */
 public class StringUtilsTest {
@@ -32,7 +31,6 @@ public class StringUtilsTest {
     // isBlank()
     /**
      * testet die methode isBlank auf true Ausgabe.
-     *
      * @author Marvin Schütz
      */
     @Test
@@ -44,7 +42,6 @@ public class StringUtilsTest {
 
     /**
      * tetstet die Methode auf false Ausgabe.
-     *
      * @author Marvin Schütz
      */
     @Test
@@ -58,7 +55,6 @@ public class StringUtilsTest {
     // join()
     /**
      * Testet die Methode join auf exception.
-     *
      * @author Marvin Schütz
      */
     @Test(expected = IllegalArgumentException.class)
@@ -68,7 +64,6 @@ public class StringUtilsTest {
 
     /**
      * Teste die Methode join auf richtige Ausgabe.
-     *
      * @author Marvin Schütz
      */
     @Test
@@ -82,7 +77,6 @@ public class StringUtilsTest {
     // isValidIsbn10()
     /**
      * Testet die Methode isValidIsbn auf false Rückgabe.
-     *
      * @author Marvin Schütz
      */
     @Test
@@ -99,7 +93,6 @@ public class StringUtilsTest {
 
     /**
      * Testet die Methode isValidIsbn auf true Rückgabe-
-     *
      * @author Marvin Schütz
      */
     @Test
@@ -112,7 +105,6 @@ public class StringUtilsTest {
     // strip() Test
     /**
      * Prüft die Methode strip() auf null im ersten Parameter.
-     *
      * @author Sebastian Hansbauer
      */
     @Test(expected = IllegalArgumentException.class)
@@ -122,7 +114,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() auf null im zweiten Parameter.
-     *
      * @author Sebastian Hansbauer
      */
     @Test(expected = IllegalArgumentException.class)
@@ -132,7 +123,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob der ganze String korrekt entfernt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -142,7 +132,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob die Methode mit Duplikaten im 1.Parameter zurechtkommt.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -152,7 +141,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob die Methode mit Duplikaten im 2.Parameter zurechtkommt.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -162,7 +150,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob die Methode mit Zeichen zurecht kommt welche im String nicht vorkommen.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -172,7 +159,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob die Methode auch mit einem leerem ersten String zurecht kommt.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -182,7 +168,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob die Methode auch mit einem leerem zweiten String zurecht kommt.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -192,7 +177,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode strip() ob der String korrekt getrimmt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -205,7 +189,6 @@ public class StringUtilsTest {
     // isSecure() Test
     /**
      * Prüft die Methode isSecure() auf null als Übergabeparameter.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -215,7 +198,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() auf "" als Übergabeparameter.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -225,7 +207,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() auf zu kurzes sonst gültiges Passwort.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -235,7 +216,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne Großbuchstaben als false erkannt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -245,7 +225,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne Kleinbuchstaben als false erkannt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -255,7 +234,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne Sonderzeichen als false erkannt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -265,7 +243,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() ob ein bestimmeter Branch durch das Sonderzeichen "|" durchlaufen wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -274,19 +251,17 @@ public class StringUtilsTest {
     }
 
     /**
-     * Prüft die Methode isSecure() ob ein bestimmeter Branch durch das Sonderzeichen "|" durchlaufen wird.
-     *
+     * Prüft die Methode isSecure() ob ein bestimmeter Branch durchlaufen wird.
      * @author Sebastian Hansbauer
      */
     @Test
     public void testeIsSecureBranchTest() {
-        assertFalse("PW ohne Sonderzeichen sollte false sein.",
+        assertFalse("PW sollte false sein.",
                 StringUtils.isSecure("                                    "));
     }
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne Zahl als false erkannt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -296,18 +271,16 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Methode isSecure() ob ein PW ohne 10 verschiedenen Zeichen als false erkannt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
     public void testeIsSecureNoDiff() {
         assertFalse("PW ohne 10 verschiedenen Zahlen sollte false sein.",
-                StringUtils.isSecure("1%Aabbbbbbbbbbbbbbbbbbbbbbb"));
+                StringUtils.isSecure("1%Aabcdefbbbbbbbbbbbbbbbbbb"));
     }
 
     /**
      * Prüft die Methode isSecure() ob ein gutes PW richtig erkannt wird.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -320,7 +293,6 @@ public class StringUtilsTest {
     // isValidIsbn13() Test
     /**
      * Prüft die Method isValidIsbn13() auf null Übergabe.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -330,7 +302,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Method isValidIsbn13() auf zu kurze Übergabe.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -340,7 +311,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Method isValidIsbn13() auf zu lange Übergabe.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -350,7 +320,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Method isValidIsbn13() auf gültige Zeichen.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -362,7 +331,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Method isValidIsbn13() auf korrekte Erkennung einer falschen ISBN.
-     *
      * @author Sebastian Hansbauer
      */
     @Test
@@ -374,7 +342,6 @@ public class StringUtilsTest {
 
     /**
      * Prüft die Method isValidIsbn13() auf korrekte Erkennung einer gültigen ISBN.
-     *
      * @author Sebastian Hansbauer
      */
     @Test

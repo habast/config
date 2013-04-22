@@ -2,16 +2,13 @@ package edu.hm.hafner.util;
 
 /**
  * Several useful utility methods that work on {@link String} instances.
- *
  * @author Sebastian Hansbauer
  * @author Marvin Schütz
  */
 public final class StringUtils {
     /**
      * Prüft, ob der übergebene String leer ist, d.h. kein Zeichen enthält.
-     *
-     * @param value
-     *            der zu prüfende String
+     * @param value der zu prüfende String
      * @return <code>true</code> falls der String kein Zeichen enthält oder <code>null</code> ist, <code>false</code>
      *         andernfalls.
      */
@@ -21,7 +18,6 @@ public final class StringUtils {
 
     /**
      * Creates a new instance of {@link StringUtils}.
-     *
      * @author Ulli Hafner
      */
     private StringUtils() {
@@ -123,8 +119,8 @@ public final class StringUtils {
      /**
      * Entfernt die Zeichen von toBeRemoved aus dem String eingabe.
      * @author Sebastian Hansbauer
-     * @param eingabe Zu bearbeitender String
-     * @param toBeRemoved Zu entfernende Zeichen
+     * @param eingabe Der zu bearbeitende String
+     * @param toBeRemoved Die zu entfernende Zeichen
      * @return Bearbeiteter String.
      */
     public static String strip(final String eingabe, final String toBeRemoved) {
@@ -141,7 +137,7 @@ public final class StringUtils {
     /**
      * Prüft das übergebene Passwort auf ausreichende Sicherheit.
      * @author Sebastian Hansbauer
-     * @param passwordEingabe Zu prüfende Passwort
+     * @param passwordEingabe Das zu prüfende Passwort
      * @return True Passwort ist sicher, false Passwort ist unsicher.
      */
     public static boolean isSecure(final String passwordEingabe) {
@@ -152,6 +148,7 @@ public final class StringUtils {
             return false;
         }
 
+        //Alle doppelten Zeichen herausfiltern
         StringBuilder diffChars = new StringBuilder();
         for (int i = 0; i < passwordEingabe.length(); i++) {
             String si = passwordEingabe.substring(i, i + 1);
@@ -169,18 +166,22 @@ public final class StringUtils {
         boolean special = false;
 
         for (int i = 0; i < passwordEingabe.length(); i++) {
+            //Zahl
             if (47 < passwordEingabe.charAt(i) && passwordEingabe.charAt(i) < 58) {
                 number = true;
                 continue;
             }
+            //Kleinbuchstaben
             if (96 < passwordEingabe.charAt(i) && passwordEingabe.charAt(i) < 123) {
                 small = true;
                 continue;
             }
+            //Großbuchstaben
             if (64 < passwordEingabe.charAt(i) && passwordEingabe.charAt(i) < 91) {
                 big = true;
                 continue;
             }
+            //Alle restlichen Sonderzeichen
             special = true;
         }
         //Hier keine volle Couverage da der Fall: 4xfalse ausgeschlossen ist
@@ -190,7 +191,7 @@ public final class StringUtils {
     /**
      * Prüft die Gültigkeit der übergebenen ISBN Nummer.
      * @author Sebastian Hansbauer
-     * @param isbnEingabe Übergebene ISBN Nummer.
+     * @param isbnEingabe Die zu prüfende ISBN Nummer
      * @return True wenn gültig, false wenn ungültig.
      */
     public static boolean isValidIsbn13(final String isbnEingabe) {
