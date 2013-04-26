@@ -19,6 +19,8 @@ import org.junit.Test;
  */
 public class ByteStreamsTest {
 
+    //Missing Blackbox testing: NULL NULL /NULL Object/ Object Null
+
     /**
      * Boundary Test
      * @author Marvin Schütz
@@ -193,7 +195,7 @@ public class ByteStreamsTest {
     }
 
     /**
-     * Test Closeable = null
+     * Test Closeable = null (close() -> return)
      * @author Marvin Schütz
      * @author Sebastian Hansbauer
      * @throws IOException
