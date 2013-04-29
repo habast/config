@@ -14,11 +14,8 @@ import org.junit.Test;
 
 
 /**
-<<<<<<< HEAD
  * Testet die ByteStream.copy() Methode.
-=======
  * Boundary interior Test der ByteStream Methode copy().
->>>>>>> refs/remotes/origin/master
  * @author Marvin Schütz
  * @author Sebastian Hansbauer
  */
