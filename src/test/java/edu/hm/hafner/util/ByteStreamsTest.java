@@ -1,5 +1,6 @@
 package edu.hm.hafner.util;
 
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
@@ -18,8 +19,6 @@ import org.junit.Test;
  * @author Sebastian Hansbauer
  */
 public class ByteStreamsTest {
-
-    //Missing Blackbox testing: NULL NULL /NULL Object/ Object Null
 
     /**
      * Boundary Test
@@ -60,7 +59,7 @@ public class ByteStreamsTest {
         OutputSupplier<OutputStream> outputSupplierMock = mock(OutputSupplier.class);
 
         //InputStream - gefuellt
-        when(inMock.read(any(byte[].class))).thenReturn(2,1,-1);
+        when(inMock.read(any(byte[].class))).thenReturn(1,1,-1);
 
         //OutputSupplier -> return outMock
         when(outputSupplierMock.getOutput()).thenReturn(outMock);
@@ -85,7 +84,7 @@ public class ByteStreamsTest {
         OutputSupplier<OutputStream> outputSupplierMock = mock(OutputSupplier.class);
 
         //InputStream - gefuellt
-        when(inMock.read(any(byte[].class))).thenReturn(2,1,-1);
+        when(inMock.read(any(byte[].class))).thenReturn(1,1,-1);
 
         //OutputSupplier -> return outMock
         when(outputSupplierMock.getOutput()).thenReturn(outMock);
@@ -132,7 +131,7 @@ public class ByteStreamsTest {
         OutputSupplier<OutputStream> outputSupplierMock = mock(OutputSupplier.class);
 
         //InputStream - gefuellt
-        when(inMock.read(any(byte[].class))).thenReturn(2,1,-1);
+        when(inMock.read(any(byte[].class))).thenReturn(1,1,-1);
 
         //OutputSupplier -> return outMock
         when(outputSupplierMock.getOutput()).thenReturn(outMock);
@@ -157,7 +156,7 @@ public class ByteStreamsTest {
         OutputSupplier<OutputStream> outputSupplierMock = mock(OutputSupplier.class);
 
         //InputStream - gefuellt
-        when(inMock.read(any(byte[].class))).thenReturn(2,1,-1);
+        when(inMock.read(any(byte[].class))).thenReturn(1,1,-1);
 
         //OutputSupplier -> return outMock
         when(outputSupplierMock.getOutput()).thenReturn(outMock);
@@ -207,11 +206,34 @@ public class ByteStreamsTest {
         OutputSupplier<OutputStream> outputSupplierMock = mock(OutputSupplier.class);
 
         //InputStream - gefuellt
-        when(inMock.read(any(byte[].class))).thenReturn(2,1,-1);
+        when(inMock.read(any(byte[].class))).thenReturn(1,1,-1);
 
         //OutputSupplier -> return null
         when(outputSupplierMock.getOutput()).thenReturn(null);
 
         ByteStreams.copy(inMock, outputSupplierMock);
     }
+
+    /**
+     * Blackbox Ergebnis Test
+     * @author Marvin Schütz
+     * @author Sebastian Hansbauer
+     * @throws IOException
+     */
+    @Test
+    public void byteStreamCopyBlackboxTest() throws IOException{
+
+        InputStream inMock = mock(InputStream.class);
+        OutputStream outMock = mock(OutputStream.class);
+        OutputSupplier<OutputStream> outputSupplierMock = mock(OutputSupplier.class);
+
+        //InputStream - gefuellt
+        when(inMock.read(any(byte[].class))).thenReturn(1,1,1,1,1,1,1,1,-1);
+
+        //OutputSupplier -> return outMock
+        when(outputSupplierMock.getOutput()).thenReturn(outMock);
+
+        assertEquals("Es sollten 2 Bytes kopiert werden.", ByteStreams.copy(inMock, outputSupplierMock), 8);
+    }
+
 }
